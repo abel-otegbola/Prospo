@@ -1,26 +1,167 @@
 @import "tailwindcss";
 
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-primary: var(--primary, oklch(58.41% 0.232 283.19));
+  --color-background: var(--background, oklch(58.41% 0.232 283.19));
+  --color-text: var(--text, oklch(24.46% 0.010 276.69));
+  --color-gray: var(--color-border-card, oklch(87.17% 0.009 258.34));
+  --color-green: var(--color-green, oklch(66.29% 0.160 152.37));
+  --color-red: var(--color-red, oklch(44.31% 0.210 27.14));
+  --font-family: "Google Sans Flex", system-ui, -apple-system, sans-serif;
+}
+
+/* Manual light theme override */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: oklch(58.41% 0.232 283.19);
+  --background: oklch(100% 0.00011 271.152);
+  --slate-100: oklch(96.8% 0.007 247.896);
+  --gray: oklch(61.51% 0.02791 263.275);
+  --text: oklch(28.805% 0.01379 310.778);
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Manual dark theme override */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --background: oklch(16.77% 0.00267 248.154);
+    --text: oklch(100% 0.00011 271.152);
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  font-family: var(--font-family, system-ui, Avenir, Helvetica, Arial, sans-serif);
+  color: var(--color-text);
+}
+
+hr {
+  border-color: var(--color-gray-100);
+}
+
+@keyframes blur-reveal {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.animate-blur-reveal {
+  animation: blur-reveal 0.8s ease-out forwards;
+}
+
+.animate-blur-reveal-delay {
+  animation: blur-reveal 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+  background: #ffffff07;
+  border-radius: 4px;
+}
+  
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #ffffff40;
+}
+
+/****** Utils ******/
+.mouse-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  visibility: hidden;
+}
+
+.cursor-inner {
+  margin-left: -4px;
+  margin-top: -4px;
+  width: 10px;
+  height: 10px;
+  z-index: 10000001;
+  background: var(--color-primary) !important;
+  -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.cursor-inner.cursor-hover {
+  margin-left: -20px;
+  margin-top: -20px;
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary) !important;
+  opacity: 0.1;
+}
+
+.cursor-outer {
+  margin-left: -15px;
+  margin-top: -15px;
+  width: 30px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 10000000;
+  opacity: 0.5;
+  border: 2px solid var(--color-primary);
+  -webkit-transition: all 0.08s ease-out;
+  transition: all 0.08s ease-out;
+}
+
+.cursor-outer.cursor-hover {
+  opacity: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media screen and (max-width: 600px) {
+  .mouse-cursor { 
+    display: none;
+  }
+}
+
+.btn-bg {
+  background: linear-gradient(96deg, #D437ED 5.3%, #C4674B 33.08%, #D9EF34 62.81%, #8263F4 88.72%);
+  filter: blur(10px);
+  opacity: 1;
+}
+.btn-bg-logo {
+  background: linear-gradient(96deg, #D437ED 5.3%, #fe4710 33.08%, #D9EF34 72.81%, #8263F4 88.72%);
+  filter: blur(5px);
+  opacity: 0.7;
+}
+.btn-bg-hero {
+  background: linear-gradient(96deg, #724fff 5.3%, #fed610 33.08%, #aaff55 72.81%, #cc5dff 88.72%);
+  filter: blur(90px);
+  opacity: 0.2;
 }
