@@ -79,7 +79,9 @@ function Sidebar() {
                                 <div key={link.id}>
                                     <h1 className={`opacity-[0.4] p-3 pt-4 text-[14px] uppercase mt-4 border-t border-gray/[0.2] ${open ? "opacity-[1] md:opacity-[0]" : ""}`}>Others</h1>
                                     <Link key={link.id} onClick={() => !isMobile ? {} : setOpen(false)} href={ link.link} className={`relative flex items-center justify-between px-3 py-3 h-[48px] rounded-[6px] duration-300 ${pathname.includes(link.link) ? "md:bg-background bg-gray/[0.05] font-semibold" : "font-medium opacity-75 hover:bg-gray/[0.09]"}`}>
-                                        {pathname.includes(link.link) ? <span className="absolute -left-[2px] w-[3px] h-6 rounded bg-black  dark:bg-primary"></span>: ""}
+                                        {
+                                        pathname === "/account" && pathname === link.link ? <span className="absolute -left-[2px] w-[3px] h-6 rounded bg-black dark:bg-primary"></span> : 
+                                        pathname !== "/account" && pathname.includes(link.link) ? <span className="absolute -left-[2px] w-[3px] h-6 rounded bg-black  dark:bg-primary"></span>: ""}
                                         <div className="flex items-center gap-3">
                                             <span className={`w-[18px] ${pathname.includes(link.link) ? "opacity-100" : ""}`}>{link.icon}</span>
                                             <span className={`flex-1 py-1 break-normal duration-500 ${open ? "md:hidden" : ""}`}>{link.label} </span>

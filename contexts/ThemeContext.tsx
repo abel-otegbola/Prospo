@@ -3,13 +3,16 @@ import { useState, useEffect, type ReactNode } from "react";
 import { ThemeContext } from "./ThemeContextValue";
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<string>("auto");
-
-  // useEffect(() => {
-  //   const stored = localStorage.getItem("theme") as string | null;
-  //   if (stored === "dark" || stored === "light") return stored;
-  //   setThemeState("auto");
-  // }, []);
+  const [theme, setThemeState] = useState<string>(() => {
+    // Initialize from localStorage on mount
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("theme");
+      if (stored === "dark" || stored === "light") {
+        return stored;
+      }
+    }
+    return "auto";
+  });
 
   useEffect(() => {
     const root = document.documentElement;
