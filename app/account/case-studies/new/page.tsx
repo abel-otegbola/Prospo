@@ -20,10 +20,13 @@ interface InsertOptionButtonProps {
 function InsertOptionButton({ label, onClick }: InsertOptionButtonProps) {
   return (
     <button
-      className="flex flex-col gap-2 items-center justify-center px-3 py-2 font-medium rounded-lg border border-gray/[0.15] text-[12px]"
+      className="flex flex-col gap-2 items-center justify-center px-3 py-6 font-medium rounded-lg border border-gray/[0.15] text-[12px] cursor-pointer hover:border-gray/[0.3] transition-colors"
       onClick={onClick}
     >
-      <Image src="/picture-placeholder.png" alt="picture" width={40} height={40} />
+      <Image src={label === "Image" ? "/picture-placeholder.png"
+        : label === "Video/Audio" ? "/video.png"
+          : label === "Embed" ? "/code.png"
+            : "/text.png"} alt={label} width={40} height={40} />
       {label}
     </button>
   );
