@@ -44,7 +44,7 @@ function Sidebar() {
         { id: 1, label: "Leads", icon: <Bookmark size={18} />, link: "/account/leads" },
         { id: 2, label: "Case Studies", icon: <File size={18} />, link: "/account/case-studies" },
         { id: 3, label: "Profile", icon: <User size={18} />, link: "/account/profile" },
-        { id: 4, label: "Pricing", icon: <Bell size={18} />, link: "/account/pricing" },
+        { id: 4, label: "Pricing", icon: <Bell size={18} />, link: "/account/billing" },
         { id: 5, label: "Settings", icon: <Settings size={18} />, link: "/account/settings" },
         { id: 6, label: "Logout", icon: <Logout size={18} />, link: "#" },
     ]

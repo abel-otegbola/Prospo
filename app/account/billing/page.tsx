@@ -6,7 +6,7 @@ import { UserProfileContext } from "@/contexts/UserProfileContextValue";
 import { AuthContext } from "@/contexts/AuthContextValue";
 import LoadingIcon from "@/assets/icons/loadingIcon";
 
-export default function Pricing() {
+export default function Billing() {
     const { user } = useContext(AuthContext);
     const { profile } = useContext(UserProfileContext);
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
