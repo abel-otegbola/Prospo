@@ -302,7 +302,7 @@ export default function CaseStudyBlocksCanvas({
               
 
               {block.content ? (
-                <Image src={block.content} alt="Case study visual" className={`w-full max-h-[420px] rounded-lg ${fitMode === "contain" ? "object-contain" : "object-cover"}`} />
+                <Image src={block.content} alt="Case study visual" width={2000} height={2000} className={`w-full max-h-[420px] rounded-lg ${fitMode === "contain" ? "object-contain" : "object-cover"}`} />
               ) : (
                 <div className="mb-3 fex items-center justify-center min-h-[200px]">
                 <CloudinaryDropUpload
