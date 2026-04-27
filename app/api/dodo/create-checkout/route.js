@@ -99,23 +99,34 @@ export async function POST(request) {
   };
 
   try {
-    const response = await fetch(`${dodoBaseUrl}/checkouts`, {
+    const url = `${dodoBaseUrl}/checkouts`;
+    console.log("🔍 Dodo Checkout Request Debug:");
+    console.log("URL:", url);
+    console.log("API Key present:", !!dodoApiKey);
+    console.log("Payload:", JSON.stringify(payload, null, 2));
+
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${dodoApiKey}`,
       },
       body: JSON.stringify(payload),
+      timeout: 10000, // 10 second timeout
     });
 
     const rawText = await response.text();
     const data = rawText ? JSON.parse(rawText) : {};
+
+    console.log("Dodo Response Status:", response.status);
+    console.log("Dodo Response:", data);
 
     if (!response.ok) {
       return json(
         {
           error: data?.error || "Failed to create Dodo checkout",
           details: data,
+          status: response.status,
         },
         502,
       );
@@ -137,10 +148,12 @@ export async function POST(request) {
       200,
     );
   } catch (error) {
+    console.error("❌ Dodo API Error:", error);
     return json(
       {
         error: "Failed to contact Dodo checkout API",
         message: error instanceof Error ? error.message : String(error),
+        details: error instanceof Error ? error.stack : "Unknown error",
       },
       500,
     );

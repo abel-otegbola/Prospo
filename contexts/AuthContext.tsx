@@ -35,6 +35,14 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         try {
             const res = await signInWithEmailAndPassword(auth, email, password);
             setUser(res.user);
+            
+            // Set cookie for middleware authentication
+            await fetch('/api/auth/set-cookie', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: res.user.uid, email: res.user.email }),
+            });
+            
             setPopup({ type: "success", msg: "Login Successful", timestamp: Date.now() });
             router.push(callbackUrl ? callbackUrl : "/account");
         } catch (error: unknown) {
@@ -93,6 +101,14 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
             const userCredential = await signInWithPopup(auth, new GoogleAuthProvider());
             const firebaseUser = userCredential.user;
             setUser(firebaseUser);
+            
+            // Set cookie for middleware authentication
+            await fetch('/api/auth/set-cookie', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: firebaseUser.uid, email: firebaseUser.email }),
+            });
+            
             setPopup({ type: "success", msg: "Login Successful", timestamp: Date.now() });
             setLoading(false);
             router.push(callbackUrl ? callbackUrl : "/account");
@@ -104,14 +120,22 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         }
     }
 
-    const logOut = () => {
-        signOut(auth)
-        .then(() => {
-            setPopup({ type: "success", msg:  "Logout Successful", timestamp: Date.now() })
-        }).catch((error: unknown) => {
+    const logOut = async () => {
+        try {
+            // Clear cookie
+            await fetch('/api/auth/clear-cookie', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            
+            await signOut(auth);
+            setUser(null);
+            setPopup({ type: "success", msg:  "Logout Successful", timestamp: Date.now() });
+            router.push('/login');
+        } catch (error: unknown) {
             const message = String(error);
             setPopup({ type: "error", msg: formatError(message), timestamp: Date.now() })
-        });
+        }
     }
 
     const forgotPassword = async (email: string) => {
