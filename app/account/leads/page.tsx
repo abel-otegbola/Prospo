@@ -178,7 +178,12 @@ export default function Leads() {
         </div>
       </div>
 
-      {loading && <SkeletonLoader count={5} />}
+      {
+      loading && 
+      <div className="grid gap-2 md:p-4 rounded-[16px] max-w-[980px] mx-auto">
+      <SkeletonLoader count={5} />
+      </div>
+      }
 
       {/* Feed Layout */}
       <div className="grid gap-2 md:p-4 rounded-[16px] max-w-[980px] mx-auto">

@@ -88,7 +88,7 @@ export default function Conversation({ lead }: Props) {
 
   return (
     <div className="conversation-component">
-      <div className="mb-5 rounded-lg min-h-[200px]">
+      <div className="mb-5 rounded-lg min-h-[340px]">
         <div className="flex items-center justify-between mb-2">
           <label className="block text-sm opacity-[0.6] font-medium">About Company</label>
           <Button size="small" className='rounded-lg' variant="secondary" onClick={fetchCompanyInsights} disabled={insightsLoading}>
