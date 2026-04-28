@@ -1,7 +1,7 @@
 'use client';
 import MediaBlockPreview from "./MediaBlockPreview";
 import type { CaseStudyBlock, TextAlign, TextVariant } from "../../interface/caseStudy";
-import { AlignLeft, AlignRight, AlignVerticalCenter, TextBold, TextItalic, TextUnderline } from "@solar-icons/react";
+import { AlignHorizontalCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Link, TextBold, TextItalic, TextUnderline, TrashBinMinimalistic } from "@solar-icons/react";
 import CloudinaryDropUpload from "./CloudinaryDropUpload";
 import { resolveMediaUrl } from "../../helpers/mediaUrl";
 import type { CloudinaryUploadResult } from "../../helpers/cloudinaryUpload";
@@ -48,7 +48,7 @@ function HoverActions({
           disabled={isFirst}
           className="px-2 py-1 text-xs rounded hover:bg-gray/[0.12] disabled:opacity-30"
         >
-          Up
+          <ArrowUp size={14} color="currentColor" />
         </button>
         <button
           type="button"
@@ -56,10 +56,10 @@ function HoverActions({
           disabled={isLast}
           className="px-2 py-1 text-xs rounded hover:bg-gray/[0.12] disabled:opacity-30"
         >
-          Down
+          <ArrowDown size={14} color="currentColor" />
         </button>
         <button type="button" onClick={onDelete} className="px-2 py-1 text-xs rounded text-red-500 hover:bg-red-500/10">
-          Delete
+          <TrashBinMinimalistic size={14} color="currentColor" />
         </button>
       </div>
     </div>
@@ -145,7 +145,7 @@ function TextInlineToolbar({
             className="px-2 py-1 text-xs rounded hover:bg-gray/[0.12]"
             onClick={() => onRunCommand(block.id, command)}
           >
-            {align === "left" ? <AlignLeft size={14} color="currentColor" /> : align === "center" ? <AlignVerticalCenter size={14} color="currentColor" /> : <AlignRight size={14} color="currentColor" />}
+            {align === "left" ? <AlignLeft size={14} color="currentColor" /> : align === "center" ? <AlignHorizontalCenter size={14} color="currentColor" /> : <AlignRight size={14} color="currentColor" />}
           </button>
           );
         })}
@@ -166,7 +166,7 @@ function TextInlineToolbar({
             }
           }}
         >
-          Link
+          <Link size={14} color="currentColor" />
         </button>
       </div>
     </div>
