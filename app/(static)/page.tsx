@@ -250,7 +250,7 @@ function Homepage() {
 
                         <ul className="flex flex-col flex-1 gap-2 text-sm opacity-[0.85]">
                             {plan.features.map(feature => (
-                                <li key={feature} className="flex items-start gap-2">
+                                <li key={feature} className="flex items-center gap-2">
                                     <span className="text-green-500 mt-[2px]"><CheckIcon /></span>
                                     <span>{feature}</span>
                                 </li>
